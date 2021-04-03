@@ -25,6 +25,12 @@ lambda/FitbitNotifier
 
 ## 前提条件
 
+* 以下のpackageをインストールしたレイヤーを作成しておく。
+    * boto3
+    * requests
+    * fitbit
+    * twitter
+
 * Fitbit APIを利用する準備が整っていること。
     
     * https://dev.fitbit.com/apps でアプリ登録をする
