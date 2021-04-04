@@ -57,6 +57,6 @@ lambda/FitbitNotifier
 aws lambda add-permission --function-name '{lambda関数:fitbit-api-token-refreshのarn}' --principal secretsmanager.amazonaws.com --action lambda:InvokeFunction --statement-id 'SecretsManagerAccess'
 ```
 
-* 定期実行する際は、AWS EventBridge に登録する。(以下の例では00:10に設定)
+* 定期実行する際は、AWS EventBridge に登録する。(以下の例では00:10に設定, UTCで管理されているらしい)
 
-    * スケジュール式: cron(10 0 ? * *? *)
+    * スケジュール式: cron(10 15 ? * *? *)
