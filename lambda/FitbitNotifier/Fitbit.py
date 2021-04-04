@@ -1,6 +1,6 @@
 import fitbit
 from SecretManager import SecretManager
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 class Fitbit:
     
@@ -30,8 +30,10 @@ class Fitbit:
             refresh_token= secret['REFRESH_TOKEN']
         )
     
+    # 前日のサマリーを取得したいので。
     def intraday_time_series(self, resource):
-        return self.client.intraday_time_series(resource)
+        yesterday = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=1)
+        return self.client.intraday_time_series(resource, base_date = yesterday)
 
     def get_resources(self):
         return self.RESOURCES
