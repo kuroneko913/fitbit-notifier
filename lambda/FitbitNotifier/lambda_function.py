@@ -22,12 +22,17 @@ def lambda_handler(event, context):
     message += f"本日の歩数: {results['activities-tracker-steps']}歩 ({distances:.3f}km)\n\n"
     message += f"消費カロリー: {results['activities-tracker-calories']}kcal ("
     message += f"基礎代謝: {results['activities-caloriesBMR']}kcal)"
-    
     print(message)
+    
+    sleep = fitbit.sleep()['summary']
+    sleep_message = f"本日({results['datetime']})の睡眠時間 from Fitbit\n\n"
+    sleep_message += f"睡眠時間: {sleep['totalMinutesAsleep']/60 :.3f}時間"
+    print(sleep_message)
 
     # twitterへメッセージを投稿する
     twitter = Twitter()
     twitter.status_update(message)
+    twitter.status_update(sleep_message)
     
     return {
         'statusCode': 200,
