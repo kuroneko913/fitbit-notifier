@@ -37,3 +37,6 @@ class Fitbit:
 
     def get_resources(self):
         return self.RESOURCES
+        
+    def sleep(self):
+        return self.client.sleep()
