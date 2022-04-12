@@ -2,6 +2,8 @@ import json
 from Twitter import Twitter
 from Fitbit import Fitbit
 
+OZ_UNIT = 29.565 # 1floz(アメリカ)≒29.57ml
+
 def lambda_handler(event, context):
 
     results = {}
@@ -22,9 +24,9 @@ def lambda_handler(event, context):
     message += f"本日の歩数: {results['activities-tracker-steps']}歩 ({distances:.3f}km)\n\n"
     message += f"消費カロリー: {results['activities-tracker-calories']}kcal ("
     message += f"基礎代謝: {results['activities-caloriesBMR']}kcal)\n"
-    message += f"飲んだ水の量:{float(results['foods-log-water']):.2f} (ml)"
+    message += f"飲んだ水の量:{float(results['foods-log-water']) * OZ_UNIT :.2f} (ml)"
     print(message)
-    
+
     sleep = fitbit.sleep()
     sleep_summary = sleep['summary']
     if (len(sleep['sleep']) != 1):
