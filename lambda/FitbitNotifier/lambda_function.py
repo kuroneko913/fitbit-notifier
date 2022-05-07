@@ -29,7 +29,7 @@ def lambda_handler(event, context):
 
     sleep = fitbit.sleep()
     sleep_summary = sleep['summary']
-    if (len(sleep['sleep']) != 1):
+    if ('sleep' in sleep):
         sleep_sleep = sleep['sleep'][0]
         sleep_message = f"本日({results['datetime']})の睡眠時間 from Fitbit\n\n"
         sleep_message += f"睡眠時間: {sleep_summary['totalMinutesAsleep']/60 :.3f}時間\n\n"
