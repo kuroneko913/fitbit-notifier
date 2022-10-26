@@ -1,6 +1,7 @@
 import json
 from Twitter import Twitter
 from Fitbit import Fitbit
+from Google_SpreadSheet import Google_SpreadSheet
 
 OZ_UNIT = 29.565 # 1floz(アメリカ)≒29.57ml
 
@@ -11,6 +12,7 @@ def lambda_handler(event, context):
     battery_level = fitbit.devices()[0]['batteryLevel']
     activities = get_fitbit_activities(fitbit)
     message = build_message_for_activities(activities)
+    message += '\n'+build_message_for_mytasks()
     print(message)
     
     # sleep
@@ -23,6 +25,7 @@ def lambda_handler(event, context):
     twitter.status_update(message)
     twitter.status_update(sleep_message)
     
+    print(activities)
     return {
         'statusCode': 200,
         'body': json.dumps(activities)
@@ -60,3 +63,12 @@ def build_message_for_sleep(sleep, datetime, battery_level):
         sleep_message += f"睡眠時間が記録されていませんでした\n\n"
     sleep_message += f"バッテリ残量:{battery_level}%\n"
     return sleep_message
+    
+def build_message_for_mytasks():
+    latest_point = getTaskLatestPoint()
+    return f"合計タスク達成ポイント:{latest_point}\n"
+
+def getTaskLatestPoint():
+    gs = Google_SpreadSheet('spreadsheet-updater')
+    last_row_values = gs.get_last_rows('マイホームワーク', 'デイリー集計シート')
+    return last_row_values[-1]

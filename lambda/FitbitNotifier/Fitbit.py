@@ -16,6 +16,9 @@ class Fitbit:
         'activities/tracker/minutesVeryActive',
         'activities/tracker/activityCalories',
         'foods/log/water',
+        'body/weight',
+        'body/fat',
+        'body/bmi',
     ]
     
     def __init__(self):
