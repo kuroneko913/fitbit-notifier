@@ -60,3 +60,8 @@ aws lambda add-permission --function-name '{lambda関数:fitbit-api-token-refres
 * 定期実行する際は、AWS EventBridge に登録する。(以下の例では00:10に設定, UTCで管理されているらしい)
 
     * スケジュール式: cron(10 15 ? * *? *)
+
+
+## 2022/10/27 追記
+個人的に集計しているスプレッドシートの最後の値もTweetするように改変した。
+この改変によって、gspread, oauthclientsの追加を行っている。
